@@ -1,0 +1,14 @@
+com\ericsson\tmo\utils\IXsltTransformer.class
+com\ericsson\tmo\outbound\ONProductOfferingSummaryServiceActivator.class
+com\ericsson\tmo\inbound\IGateway.class
+com\ericsson\tmo\inbound\ProductCatalogueEndpoint.class
+com\ericsson\tmo\processor\ProductOfferingSummaryAggregator.class
+com\ericsson\tmo\utils\XSLTTransformerCache.class
+com\ericsson\tmo\constants\IEndpointConstants.class
+com\ericsson\tmo\processor\ProductOfferingSummarySplitter.class
+com\ericsson\tmo\router\AsynchronousRouter.class
+com\ericsson\tmo\inbound\ProductCatalogSummaryXMLGateway.class
+com\ericsson\tmo\processor\ProductOfferingSummaryProcessor.class
+com\ericsson\tmo\processor\ProductOfferingSummaryTransformer.class
+com\ericsson\tmo\processor\IProcessor.class
+com\ericsson\tmo\outbound\OutboundServiceActivator.class

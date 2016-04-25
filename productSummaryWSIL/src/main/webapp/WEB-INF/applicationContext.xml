@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:sws="http://www.springframework.org/schema/web-services"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+						http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+  						http://www.springframework.org/schema/web-services 
+  						http://www.springframework.org/schema/web-services/web-services-2.0.xsd
+  						http://www.springframework.org/schema/context 
+  						http://www.springframework.org/schema/context/spring-context-3.0.xsd
+  						http://www.springframework.org/schema/util
+						http://www.springframework.org/schema/util/spring-util.xsd">
+
+	<bean id="xsltTransformerCache" class="com.ericsson.tmo.utils.XSLTTransformerCache">
+		<property name="transformerConfig">
+			<util:map map-class="java.util.HashMap">
+			    <!-- /../../../../../../XSLT/wsil_on_getProductOfferingSummaryResquest.xsl /../../../../../../XSLT/on_wsil_getProductOfferingSummaryResponse.xsl-->
+				<entry key="xsl_wsil_epc_getProductOfferingSummaryResquest" value="/XSLT/wsil_epc_getProductOfferingSummaryResquest.xsl" />
+				<entry key="xsl_epc_wsil_getProductOfferingSummaryResponse" value="/XSLT/epc_wsil_getProductOfferingSummaryResponse.xsl" />
+			</util:map>
+		</property>
+	</bean>
+	
+	<bean id="productOfferingSummaryTransformer" class="com.ericsson.tmo.processor.ProductOfferingSummaryTransformer">
+		<property name="cache" ref="xsltTransformerCache" />
+	</bean>
+
+
+
+</beans>

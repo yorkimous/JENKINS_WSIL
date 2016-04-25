@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cheatsheet
+      title="Title">
+   <intro>
+      <description>
+         <b>Cron Exp to delete logs each minute</b>
+      </description>
+   </intro>
+   <item
+         title="EXP">
+      <description>
+         <b>*/1 * * * * rm -f /opt/jboss/appserv/tomcat/apache-tomcat-8.0.33/logs/catalina.out</b>
+      </description>
+   </item>
+</cheatsheet>

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:sws="http://www.springframework.org/schema/web-services"
+	xmlns:integration="http://www.springframework.org/schema/integration"
+	xmlns:si-ws="http://www.springframework.org/schema/integration/ws"
+	xmlns:si-xml="http://www.springframework.org/schema/integration/xml"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+						http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+ 						http://www.springframework.org/schema/web-services 
+ 						http://www.springframework.org/schema/web-services/web-services-2.0.xsd
+  						http://www.springframework.org/schema/context 
+  						http://www.springframework.org/schema/context/spring-context-3.0.xsd
+  						http://www.springframework.org/schema/integration
+    					http://www.springframework.org/schema/integration/spring-integration.xsd
+    					http://www.springframework.org/schema/integration/ws
+    					http://www.springframework.org/schema/integration/ws/spring-integration-ws.xsd
+    					http://www.springframework.org/schema/integration/xml
+    					http://www.springframework.org/schema/integration/xml/spring-integration-xml.xsd">
+
+
+
+	<import resource="applicationContext.xml"/>
+
+
+	<!-- WSDL exposure -->
+	<sws:static-wsdl id="ProductOfferingSummaryWSIL" location="/WEB-INF/ProductOfferingSummaryWSIL.wsdl" />
+
+
+	<bean id="payloadMapping"
+		class="org.springframework.ws.server.endpoint.mapping.UriEndpointMapping">
+		<property name="defaultEndpoint" ref="productOfferingSummaryGateway" />
+		<property name="interceptors">
+			<list>
+				<ref local="loggingInterceptor" />
+			</list>
+		</property> 
+	</bean>
+
+
+	<bean id="loggingInterceptor"
+		class="org.springframework.ws.server.endpoint.interceptor.PayloadLoggingInterceptor">
+		<property name="logRequest" value="false" />
+		<property name="logResponse" value="false" />
+	</bean>
+
+
+	<bean id="productCatalogSummaryXMLGateway" class="com.ericsson.tmo.inbound.ProductCatalogSummaryXMLGateway" />
+
+	<integration:channel id="errorChannel" />
+	<integration:channel id="inputChannel" />
+	<integration:channel id="outputChannel" />
+	<integration:channel id="routingChannel" />
+	<integration:channel id="catalogSummaryChannel"/>
+	<integration:channel id="inOutChannel"/>
+	<integration:channel id="outInChannel"/>
+
+	<integration:logging-channel-adapter
+		log-full-message="true" id="logger" level="INFO" />
+
+	<integration:logging-channel-adapter id="logger" logger-name="WIRETAP" level="INFO" expression="'payload: ' + getPayload()" />
+
+
+	<si-ws:inbound-gateway id="productOfferingSummaryGateway"
+		request-channel="inputChannel" reply-channel="outputChannel"/> <!--  -->
+
+	<integration:service-activator id="productOfferingSummaryActivator"
+		ref="productCatalogSummaryXMLGateway" input-channel="inputChannel"
+		output-channel="routingChannel" />
+
+
+	<integration:router input-channel="routingChannel" ref="aSynchRouter"
+		method="fireAndForget" />
+		
+		
+	<bean id="aSynchRouter" class="com.ericsson.tmo.router.AsynchronousRouter" />
+	
+	
+	<integration:service-activator input-channel="catalogSummaryChannel" output-channel="inOutChannel"
+													ref="prodOfferingSummaryProcessor" method="processMessage" />
+
+
+
+	<bean id="prodOfferingSummaryProcessor" class="com.ericsson.tmo.processor.ProductOfferingSummaryProcessor">
+				<property name="productOfferingSummaryTransformer" ref="productOfferingSummaryTransformer" />
+	</bean>
+	
+	<!-- Local config for outbound gateway for ON Service-->
+	<!-- <si-ws:outbound-gateway id="outBoundGateway"
+        request-channel="inOutChannel" reply-channel="outInChannel"
+        uri ="http://localhost:7575/cwf/services/ProductOfferingSummaryService"/> -->
+        
+        <!-- Server Config for outbond gateway -->
+	<!-- <si-ws:outbound-gateway id="outBoundGateway"
+        request-channel="inOutChannel" reply-channel="outInChannel"
+        uri="http://10.158.104.40:8081/cwf/services/ProductOfferingSummaryService"/> -->
+       
+        
+        <!-- Local local config for outbound gateway for EPC Service-->
+	<!-- <si-ws:outbound-gateway id="outBoundGateway"
+        request-channel="inOutChannel" reply-channel="outInChannel"
+        uri ="http://localhost:7577/tmoCatalogServices/getProductOfferingSummary"/> -->
+        
+         <!-- Local server config for outbound gateway for EPC Service-->
+       <!--  <si-ws:outbound-gateway id="outBoundGateway"
+        request-channel="inOutChannel" reply-channel="outInChannel"
+        uri ="http://10.253.0.102:8081/cwf/services/tmoCatalogServices"/> -->
+	
+	    <!-- SERVER server config for outbound gateway for EPC Service-->
+		<si-ws:outbound-gateway id="outBoundGateway"
+        request-channel="inOutChannel" reply-channel="outInChannel"
+        uri ="http://10.158.104.40:8081/cwf/services/tmoCatalogServices"/>
+	
+        
+        
+        <integration:service-activator input-channel="outInChannel" output-channel="outputChannel"
+													ref="prodOfferingSummaryProcessor" method="responseAggregator" />
+        
+	
+</beans>

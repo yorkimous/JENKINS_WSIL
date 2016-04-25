@@ -1,0 +1,187 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.ericsson.tmo</groupId>
+	<artifactId>productSummaryWSIL</artifactId>
+	<packaging>war</packaging>
+	<version>1.0-SNAPSHOT</version>
+	<name>productSummaryWSIL Maven Webapp</name>
+	<url>http://maven.apache.org</url>
+
+
+	<organization>
+		<name>Ericsson</name>
+	</organization>
+	<developers>
+		<developer>
+			<id>esokroy</id>
+			<name>Soumik Roy</name>
+			<email>soumik.roy@ericsson.com</email>
+			<roles>
+				<role>developer</role>
+			</roles>
+		</developer>
+	</developers>
+
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<spring.integration.version>4.2.2.RELEASE</spring.integration.version>
+		<springframework.boot.version>1.3.2.RELEASE</springframework.boot.version>
+		<springframewrk.boot.ws.version>1.2.0.RELEASE</springframewrk.boot.ws.version>
+		<wsdl4j.version>1.6.1</wsdl4j.version>
+		<jaxb.version>2.2.12</jaxb.version>
+		<log4j.version>1.2.17</log4j.version>
+		<junit.version>4.10</junit.version>
+		<xalan.version>2.7.2</xalan.version>
+		<!-- <cxf.jaxws.version>3.1.5</cxf.jaxws.version> <cxf.httpTransport.version>3.1.5</cxf.httpTransport.version> -->
+	</properties>
+
+
+	<dependencies>
+
+		<!-- TEST CASE DEPENDENCIES -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.11</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.hamcrest</groupId>
+			<artifactId>hamcrest-all</artifactId>
+			<version>1.3</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!--  ENDS -->
+
+		<dependency>
+			<groupId>xalan</groupId>
+			<artifactId>xalan</artifactId>
+			<version>${xalan.version}</version>
+		</dependency>
+		
+		<!-- <dependency>
+			<groupId>net.sf.saxon</groupId>
+			<artifactId>Saxon-HE</artifactId>
+			<version>9.4</version>
+		</dependency>
+ -->
+		<dependency>
+			<groupId>org.springframework.integration</groupId>
+			<artifactId>spring-integration-core</artifactId>
+			<version>${spring.integration.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.integration</groupId>
+			<artifactId>spring-integration-ws</artifactId>
+			<version>${spring.integration.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.integration</groupId>
+			<artifactId>spring-integration-xml</artifactId>
+			<version>${spring.integration.version}</version>
+		</dependency>
+
+
+		<!-- <dependency> <groupId>org.apache.cxf</groupId> <artifactId>cxf-rt-frontend-jaxws</artifactId> 
+			<version>${cxf.jaxws.version}</version> </dependency> <dependency> <groupId>org.apache.cxf</groupId> 
+			<artifactId>cxf-rt-transports-http</artifactId> <version>${cxf.httpTransport.version}</version> 
+			</dependency> -->
+
+		<dependency>
+			<groupId>org.springframework.integration</groupId>
+			<artifactId>spring-integration-stream</artifactId>
+			<version>${spring.integration.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot</artifactId>
+			<version>${springframework.boot.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-ws</artifactId>
+			<version>${springframewrk.boot.ws.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>wsdl4j</groupId>
+			<artifactId>wsdl4j</artifactId>
+			<version>${wsdl4j.version}</version>
+		</dependency>
+
+		<!-- <dependency> <groupId>javax.xml.bind</groupId> <artifactId>jaxb-api</artifactId> 
+			<version>${jaxb.version}</version> </dependency> -->
+
+
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>${log4j.version}</version>
+		</dependency>
+
+	</dependencies>
+
+
+	<build>
+		<finalName>productSummaryWSIL</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.6</version>
+				<goals>
+					<goal>copy-dependencies</goal>
+				</goals>
+				<configuration>
+					<webResources>
+						<resource>
+							<directory>C:\CODEBASE\uprising_java\tmoesb\ONApi\ProductReferenceDataON\target\</directory>
+							<includes>
+								<include>*.jar</include>
+							</includes>
+							<targetPath>WEB-INF/lib</targetPath>
+						</resource>
+					</webResources>
+
+				</configuration>
+			</plugin>
+
+
+
+			<!-- <plugin> <groupId>org.apache.cxf</groupId> <artifactId>cxf-codegen-plugin</artifactId> 
+				<version>3.1.5</version> <executions> <execution> <id>generate-sources</id> 
+				<phase>generate-sources</phase> <configuration> <sourceRoot>${basedir}/target/generated/src/main/java</sourceRoot> 
+				<wsdlOptions> <wsdlOption> <wsdl>${basedir}/src/main/webapp/WEB-INF/ProductOfferingSummaryWSIL.wsdl</wsdl> 
+				<wsdlLocation>classpath:ProductOfferingSummaryWSIL.wsdl</wsdlLocation> <extraargs> 
+				<extraarg>-impl</extraarg> <extraarg>-verbose</extraarg> <extraarg>-autoNameResolution</extraarg> 
+				<extraarg>-p</extraarg> <extraarg>com.ericsson.tmo.dto.productOffering</extraarg> 
+				</extraargs> </wsdlOption> </wsdlOptions> </configuration> <goals> <goal>wsdl2java</goal> 
+				</goals> </execution> </executions> </plugin> -->
+
+
+			<!-- <plugin> <groupId>org.codehaus.mojo</groupId> <artifactId>jaxb2-maven-plugin</artifactId> 
+				<version>1.6</version> <executions> <execution> <id>xjc</id> <goals> <goal>xjc</goal> 
+				</goals> </execution> </executions> <configuration> <schemaDirectory>${project.basedir}/src/main/webapp/WEB-INF/</schemaDirectory> 
+				<outputDirectory>${project.basedir}/target/generated/src/main/java</outputDirectory> 
+				<clearOutputDir>false</clearOutputDir> <packageName>com.ericsson.tmo.dto.productOffering</packageName> 
+				<wsdl>true</wsdl> <arguments>-XautoNameResolution</arguments> <xmlschema>false</xmlschema> 
+				<schemaFiles>ProductOfferingSummaryWSIL.wsdl</schemaFiles> </configuration> 
+				</plugin> -->
+
+
+
+		</plugins>
+	</build>
+
+	<!-- https://www.javacodegeeks.com/2015/09/spring-integration-and-web-services.html 
+		https://www.javacodegeeks.com/2015/09/spring-integration-and-web-services.html -->
+
+
+
+</project>

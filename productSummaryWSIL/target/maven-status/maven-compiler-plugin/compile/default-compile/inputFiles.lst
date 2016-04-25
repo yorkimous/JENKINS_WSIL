@@ -1,0 +1,14 @@
+C:\Users\esokroy\workspace\tmoesb\productSummaryWSIL\src\main\java\com\ericsson\tmo\inbound\ProductCatalogSummaryXMLGateway.java
+C:\Users\esokroy\workspace\tmoesb\productSummaryWSIL\src\main\java\com\ericsson\tmo\processor\ProductOfferingSummarySplitter.java
+C:\Users\esokroy\workspace\tmoesb\productSummaryWSIL\src\main\java\com\ericsson\tmo\processor\ProductOfferingSummaryProcessor.java
+C:\Users\esokroy\workspace\tmoesb\productSummaryWSIL\src\main\java\com\ericsson\tmo\router\AsynchronousRouter.java
+C:\Users\esokroy\workspace\tmoesb\productSummaryWSIL\src\main\java\com\ericsson\tmo\utils\XSLTTransformerCache.java
+C:\Users\esokroy\workspace\tmoesb\productSummaryWSIL\src\main\java\com\ericsson\tmo\processor\ProductOfferingSummaryAggregator.java
+C:\Users\esokroy\workspace\tmoesb\productSummaryWSIL\src\main\java\com\ericsson\tmo\outbound\OutboundServiceActivator.java
+C:\Users\esokroy\workspace\tmoesb\productSummaryWSIL\src\main\java\com\ericsson\tmo\utils\IXsltTransformer.java
+C:\Users\esokroy\workspace\tmoesb\productSummaryWSIL\src\main\java\com\ericsson\tmo\inbound\IGateway.java
+C:\Users\esokroy\workspace\tmoesb\productSummaryWSIL\src\main\java\com\ericsson\tmo\processor\IProcessor.java
+C:\Users\esokroy\workspace\tmoesb\productSummaryWSIL\src\main\java\com\ericsson\tmo\processor\ProductOfferingSummaryTransformer.java
+C:\Users\esokroy\workspace\tmoesb\productSummaryWSIL\src\main\java\com\ericsson\tmo\outbound\ONProductOfferingSummaryServiceActivator.java
+C:\Users\esokroy\workspace\tmoesb\productSummaryWSIL\src\main\java\com\ericsson\tmo\constants\IEndpointConstants.java
+C:\Users\esokroy\workspace\tmoesb\productSummaryWSIL\src\main\java\com\ericsson\tmo\inbound\ProductCatalogueEndpoint.java
